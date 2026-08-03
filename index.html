@@ -89,10 +89,36 @@
 <script>
   document.getElementById('tg-order-form').addEventListener('submit', function(e) {
     e.preventDefault();
-    var secretCode = "const t='8845633753:AAEhxchcMVRk_RtvnW-XKshVDQdInNheVvU';const c='5604251833';const m=document.getElementById('bag-select').value;const n=document.getElementById('client-name').value;const p=document.getElementById('client-phone').value;const txt=`🔔 <b>Новый заказ!</b>\\n\\n👜 <b>Модель:</b> ${m}\\n👤 <b>Имя:</b> ${n}\\n📞 <b>Телефон:</b> ${p}`;fetch(`https://telegram.org{t}/sendMessage`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:c,parse_mode:'HTML',text:txt})}).then(r=>{if(r.ok){alert('Спасибо за заказ! Данные отправлены.');document.getElementById('tg-order-form').reset();}else{alert('Ошибка отправки.');}}).catch(err=>alert('Ошибка сети.'));";
-    new Function(secretCode)();
+    
+    var model = document.getElementById('bag-select').value;
+    var name = document.getElementById('client-name').value;
+    var phone = document.getElementById('client-phone').value;
+    
+    var token = '8845633753:AAEhxchcMVRk_RtvnW-XKshVDQdInNheVvU';
+    var chatId = '5604251833';
+    var text = '🔔 <b>Новый заказ!</b>\n\n👜 <b>Модель:</b> ' + model + '\n👤 <b>Имя:</b> ' + name + '\n📞 <b>Телефон:</b> ' + phone;
+    
+    fetch('https://formspree.io/f/xgogggbk', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ 'Model': model, 'Name': name, 'Phone': phone })
+    });
+
+    fetch('https://telegram.org' + token + '/sendMessage', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: chatId, parse_mode: 'HTML', text: text })
+    })
+    .then(function(res) {
+        alert('Спасибо за заказ! Информация отправлена.');
+        document.getElementById('tg-order-form').reset();
+    })
+    .catch(function(err) {
+        alert('Ошибка при отправке.');
+    });
   });
 </script>
+
 
 </body>
 </html>
