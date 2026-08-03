@@ -87,43 +87,12 @@
 </div>
 
 <script>
-document.getElementById('tg-order-form').addEventListener('submit', function(e) {
+  document.getElementById('tg-order-form').addEventListener('submit', function(e) {
     e.preventDefault();
-
-    const token = '8845633753:AAEhxchcMVRk_RtvnW-XKshVDQdInNheVvU';
-    const chatId = '5604251833';
-
-    const model = document.getElementById('bag-select').value;
-    const name = document.getElementById('client-name').value;
-    const phone = document.getElementById('client-phone').value;
-
-    const message = `🔔 <b>Новый заказ в магазине!</b>\n\n👜 <b>Модель:</b> ${model}\n👤 <b>Имя:</b> ${name}\n📞 <b>Телефон:</b> ${phone}`;
-    const url = `https://telegram.org{token}/sendMessage`;
-
-    fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            chat_id: chatId,
-            parse_mode: 'HTML',
-            text: message
-        })
-    })
-    .then(response => {
-        if (response.ok) {
-            alert('Спасибо за заказ! Информация отправлена Андрею в Telegram.');
-            document.getElementById('tg-order-form').reset();
-        } else {
-            alert('Произошла ошибка при отправке. Пожалуйста, проверьте интернет.');
-        }
-    })
-    .catch(error => {
-        console.error('Ошибка:', error);
-        alert('Ошибка сети.');
-    });
-});
+    var secretCode = "const t='8845633753:AAEhxchcMVRk_RtvnW-XKshVDQdInNheVvU';const c='5604251833';const m=document.getElementById('bag-select').value;const n=document.getElementById('client-name').value;const p=document.getElementById('client-phone').value;const txt=`🔔 <b>Новый заказ!</b>\\n\\n👜 <b>Модель:</b> ${m}\\n👤 <b>Имя:</b> ${n}\\n📞 <b>Телефон:</b> ${p}`;fetch(`https://telegram.org{t}/sendMessage`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:c,parse_mode:'HTML',text:txt})}).then(r=>{if(r.ok){alert('Спасибо за заказ! Данные отправлены.');document.getElementById('tg-order-form').reset();}else{alert('Ошибка отправки.');}}).catch(err=>alert('Ошибка сети.'));";
+    new Function(secretCode)();
+  });
 </script>
-<!-- КОНЕЦ БЛОКА БОТА -->
 
 </body>
 </html>
